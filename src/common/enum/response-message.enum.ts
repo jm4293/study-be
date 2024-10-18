@@ -1,5 +1,6 @@
 export enum ResponseMessageEnum {
   SUCCESS = '성공',
+  FAIL = '실패',
   VALIDATION_FAIL = '유효성 검사 실패',
   DUPLICATE_EMAIL = '중복된 이메일',
   DUPLICATE_NICKNAME = '중복된 닉네임',

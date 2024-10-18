@@ -8,20 +8,13 @@ export class ResponseDto {
     private readonly data?: unknown,
   ) {}
 
-  success(data: unknown) {
-    return new ResponseDto(
-      ResponseCodeEnum.SUCCESS,
-      ResponseMessageEnum.SUCCESS,
-      data,
-    );
+  Success(data: unknown) {
+    return new ResponseDto(ResponseCodeEnum.SUCCESS, ResponseMessageEnum.SUCCESS, data);
   }
 
-  databaseError() {
+  DatabaseError() {
     throw new InternalServerErrorException(
-      new ResponseDto(
-        ResponseCodeEnum.DATABASE_ERROR,
-        ResponseMessageEnum.DATABASE_ERROR,
-      ),
+      new ResponseDto(ResponseCodeEnum.DATABASE_ERROR, ResponseMessageEnum.DATABASE_ERROR),
     );
   }
 }
