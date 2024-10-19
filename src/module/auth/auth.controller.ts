@@ -1,14 +1,8 @@
-import { Body, Controller, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Patch, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import {
-  AuthSignInRequestDto,
-  AuthSignUpRequestDto,
-  AuthSignInResponseDto,
-  AuthSignUpResponseDto,
-  AuthChangePasswordRequestDto,
-  AuthChangePasswordDto,
-} from './dto';
+import { AuthSignInRequestDto, AuthSignUpRequestDto, AuthChangePasswordRequestDto } from './dto';
 import { ApiOperation } from '@nestjs/swagger';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -16,19 +10,31 @@ export class AuthController {
 
   @ApiOperation({ summary: '로그인' })
   @Post('sign-in')
-  async signIn(@Body() req: AuthSignInRequestDto): Promise<AuthSignInResponseDto> {
-    return this.userService.signIn(req); // 예외 처리를 따로 하지 않고 그대로 위임
+  async signIn(@Body() body: AuthSignInRequestDto, @Res() res: Response) {
+    try {
+      return this.userService.signIn(body, res);
+    } catch (e) {
+      return e;
+    }
   }
 
   @ApiOperation({ summary: '회원가입' })
   @Post('sign-up')
-  async signUp(@Body() req: AuthSignUpRequestDto): Promise<AuthSignUpResponseDto> {
-    return this.userService.signUp(req);
+  async signUp(@Body() body: AuthSignUpRequestDto) {
+    try {
+      return this.userService.signUp(body);
+    } catch (e) {
+      return e;
+    }
   }
 
   @ApiOperation({ summary: '비밀번호 변경' })
   @Patch('change-password')
-  async changePassword(@Body() req: AuthChangePasswordRequestDto): Promise<AuthChangePasswordDto> {
-    return this.userService.changePassword(req);
+  async changePassword(@Body() body: AuthChangePasswordRequestDto) {
+    try {
+      return this.userService.changePassword(body);
+    } catch (e) {
+      return e;
+    }
   }
 }

@@ -3,10 +3,7 @@ import { Transform, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthSignInRequestDto {
-  @ApiProperty({
-    description: '이메일',
-    required: true,
-  })
+  @ApiProperty({ description: '이메일', required: true })
   @Transform(({ value }) => value.trim())
   @Type(() => String)
   @IsString({ message: '이메일은 문자열이어야 합니다.' })

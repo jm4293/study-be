@@ -19,11 +19,12 @@ export class UserRepository {
     return await this.repository.findOne({ where: { email } });
   }
 
-  async createUser(dto: AuthSignUpRequestDto): Promise<UserModel> {
-    return await this.repository.save(dto);
+  async createUser(body: AuthSignUpRequestDto): Promise<UserModel> {
+    const user = this.repository.create(body);
+    return await this.repository.save(user);
   }
 
-  async changePassword(dto: AuthChangePasswordRequestDto): Promise<UpdateResult> {
-    return await this.repository.update({ email: dto.email }, { password: dto.password });
+  async changePassword(body: AuthChangePasswordRequestDto): Promise<UpdateResult> {
+    return await this.repository.update({ email: body.email }, { password: body.password });
   }
 }
