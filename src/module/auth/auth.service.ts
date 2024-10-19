@@ -35,9 +35,9 @@ export class AuthService {
       throw AuthSignInResponseDto.SignInFail('비밀번호가 일치하지 않습니다.');
     }
 
-    const token = await this.generateToken({ email: user.email, name: user.name });
+    const token = await this.generateToken({ userId: user.id, email: user.email, name: user.name });
 
-    res.cookie('auth_token', token, { httpOnly: true, maxAge: 1000 * 60 * 5 });
+    res.setHeader('Authorization', `Bearer ${token}`);
 
     return res.send(AuthSignInResponseDto.Success('로그인 성공'));
   }
@@ -84,7 +84,7 @@ export class AuthService {
     return AuthChangePasswordResponseDto.Success('비밀번호가 변경되었습니다.');
   }
 
-  async generateToken(payload: { email: string; name: string }): Promise<string> {
+  async generateToken(payload: { userId: number; email: string; name: string }): Promise<string> {
     return this.jwtService.sign(payload);
   }
 }
