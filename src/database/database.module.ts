@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModel } from './model';
-import { UserRepository } from './repository';
+import { BoardModel, UserModel, BoardCommentModel } from './model';
+import { BoardCommentRepository, BoardRepository, UserRepository } from './repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserModel])],
-  providers: [UserRepository],
-  exports: [UserRepository],
+  imports: [TypeOrmModule.forFeature([UserModel, BoardModel, BoardCommentModel])],
+  providers: [UserRepository, BoardRepository, BoardCommentRepository],
+  exports: [UserRepository, BoardRepository, BoardCommentRepository],
 })
 export class DatabaseModule {}
