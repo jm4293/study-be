@@ -8,11 +8,11 @@ export class ResponseDto {
     private readonly data?: unknown,
   ) {}
 
-  Success(data: unknown) {
-    return new ResponseDto(ResponseCodeEnum.SUCCESS, ResponseMessageEnum.SUCCESS, data);
-  }
+  // Success(data: unknown) {
+  //   return new ResponseDto(ResponseCodeEnum.SUCCESS, ResponseMessageEnum.SUCCESS, data);
+  // }
 
-  DatabaseError() {
+  static DatabaseError() {
     throw new InternalServerErrorException(
       new ResponseDto(ResponseCodeEnum.DATABASE_ERROR, ResponseMessageEnum.DATABASE_ERROR),
     );
