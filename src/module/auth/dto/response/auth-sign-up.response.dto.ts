@@ -11,8 +11,6 @@ export class AuthSignUpResponseDto extends ResponseDto {
   }
 
   static SignUpFail(data: string) {
-    return new BadRequestException(
-      new AuthSignUpResponseDto(ResponseCodeEnum.SIGN_IN_FAIL, ResponseMessageEnum.SIGN_IN_FAIL, data),
-    );
+    return new BadRequestException(new AuthSignUpResponseDto(ResponseCodeEnum.FAIL, ResponseMessageEnum.FAIL, data));
   }
 }
