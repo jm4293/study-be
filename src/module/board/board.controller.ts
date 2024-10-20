@@ -10,7 +10,7 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @ApiOperation({ summary: '게시글 리스트' })
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('board-list')
   async boardList(@Req() req: AuthenticatedRequest) {
     try {
