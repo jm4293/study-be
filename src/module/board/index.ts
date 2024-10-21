@@ -1,4 +1,3 @@
-export * from './dto';
-export { BoardController } from './board.controller';
-export { BoardModule } from './board.module';
-export { BoardService } from './board.service';
+export * from './board.controller';
+export * from './board.module';
+export * from './board.service';

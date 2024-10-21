@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { BoardRepository } from '../../database';
-import { BoardCreateRequestDto, BoardCreateResponseDto } from './dto';
-import { AuthenticatedRequest } from '../../type';
+import { BoardRepository } from '~/database/repository';
+import { BoardCreateResponseDto } from '~/module/board/response';
+import { BoardCreateRequestDto } from '~/module/board/request';
+import { AuthenticatedRequest } from '~/type/interface';
 
 @Injectable()
 export class BoardService {
@@ -10,7 +11,7 @@ export class BoardService {
   async boardList() {
     const result = await this.boardRepository.findAll();
 
-    return BoardCreateResponseDto.Success(result);
+    return BoardCreateResponseDto.Success('게시글 조회 성공', result);
   }
 
   async boardCreate(req: AuthenticatedRequest, body: BoardCreateRequestDto): Promise<BoardCreateResponseDto> {
@@ -31,6 +32,6 @@ export class BoardService {
 
     const result = await this.boardRepository.createBoard(userId, body);
 
-    return BoardCreateResponseDto.Success(result);
+    return BoardCreateResponseDto.Success('게시판 생성 성공', result);
   }
 }

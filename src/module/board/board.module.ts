@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { BoardService } from './board.service';
-import { BoardController } from './board.controller';
-import { DatabaseModule } from '../../database';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtModuleConfig } from '../../config';
+import { DatabaseModule } from '~/database';
+import { jwtModuleConfig } from '~/config';
+import { BoardController } from '~/module/board/board.controller';
+import { BoardService } from '~/module/board/board.service';
 
 @Module({
   imports: [DatabaseModule, JwtModule.registerAsync(jwtModuleConfig)],

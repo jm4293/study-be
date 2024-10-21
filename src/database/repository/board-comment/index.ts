@@ -1,1 +1,1 @@
-export { BoardCommentRepository } from './board-comment.reposiroty';
+export * from './board-comment.reposiroty';

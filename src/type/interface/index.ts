@@ -1,1 +1,1 @@
-export { AuthenticatedRequest } from './authenticatedRequest';
+export * from './authenticatedRequest';

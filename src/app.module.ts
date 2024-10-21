@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { configModuleConfig, typeormPostgresConfig } from '~/config';
+import { AuthModule } from '~/module/auth';
+import { BoardModule } from '~/module/board';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
-import { configModuleConfig, typeormPostgresConfig } from './config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './module';
-import { BoardModule } from './module';
 
 @Module({
   imports: [

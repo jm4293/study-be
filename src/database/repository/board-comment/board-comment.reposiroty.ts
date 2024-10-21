@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BoardCommentModel } from '../../model/board-comment';
 import { Repository } from 'typeorm';
+import { BoardCommentModel } from '~/database/model';
 
 @Injectable()
 export class BoardCommentRepository {

@@ -1,1 +1,1 @@
-export { BoardCommentModel } from './board-comment.model';
+export * from './board-comment.model';

@@ -1,10 +1,10 @@
-import { ResponseCodeEnum, ResponseMessageEnum } from '../enum';
 import { InternalServerErrorException } from '@nestjs/common';
+import { ResponseResultEnum } from '~/common/enum';
 
 export class ResponseDto {
   constructor(
-    private readonly code: ResponseCodeEnum,
-    private readonly message: ResponseMessageEnum,
+    private readonly result: ResponseResultEnum,
+    private readonly message: string,
     private readonly data?: unknown,
   ) {}
 
@@ -13,8 +13,6 @@ export class ResponseDto {
   // }
 
   static DatabaseError() {
-    throw new InternalServerErrorException(
-      new ResponseDto(ResponseCodeEnum.DATABASE_ERROR, ResponseMessageEnum.DATABASE_ERROR),
-    );
+    throw new InternalServerErrorException(new ResponseDto(ResponseResultEnum.DATABASE_ERROR, '데이터베이스 에러'));
   }
 }

@@ -1,1 +1,1 @@
-export { ResponseDto } from './response-dto';
+export * from './response-dto';

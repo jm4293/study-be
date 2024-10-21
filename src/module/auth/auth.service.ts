@@ -1,17 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../../database';
-import {
-  AuthChangePasswordRequestDto,
-  AuthChangePasswordResponseDto,
-  AuthSignInRequestDto,
-  AuthSignInResponseDto,
-  AuthSignUpRequestDto,
-  AuthSignUpResponseDto,
-} from './dto';
 import { Response } from 'express';
+import { JwtService } from '@nestjs/jwt';
+import { UserRepository } from '~/database/repository/user';
+import { AuthChangePasswordRequestDto, AuthSignInRequestDto, AuthSignUpRequestDto } from '~/module/auth/request';
+import { AuthChangePasswordResponseDto, AuthSignInResponseDto, AuthSignUpResponseDto } from '~/module/auth/response';
 
 import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +33,9 @@ export class AuthService {
 
     res.setHeader('Authorization', `Bearer ${token}`);
 
-    return res.send(AuthSignInResponseDto.Success('로그인 성공'));
+    const responseData = { email: user.email, name: user.name };
+
+    return res.send(AuthSignInResponseDto.Success('로그인 성공', responseData));
   }
 
   async signUp(body: AuthSignUpRequestDto) {
@@ -62,9 +58,9 @@ export class AuthService {
 
     const result = await this.userRepository.createUser({ ...body, password: hashPassword });
 
-    const userData = { email: result.email, name: result.name };
+    const responseData = { email: result.email, name: result.name };
 
-    return AuthSignUpResponseDto.Success(userData);
+    return AuthSignUpResponseDto.Success('회원가입 성공', responseData);
   }
 
   async changePassword(body: AuthChangePasswordRequestDto): Promise<AuthChangePasswordResponseDto> {
@@ -81,7 +77,9 @@ export class AuthService {
 
     await this.userRepository.changePassword({ email, password: hashPassword });
 
-    return AuthChangePasswordResponseDto.Success('비밀번호가 변경되었습니다.');
+    const responseData = { email: user.email, name: user.name };
+
+    return AuthChangePasswordResponseDto.Success('비밀번호 변경 완료', responseData);
   }
 
   async generateToken(payload: { userId: number; email: string; name: string }): Promise<string> {

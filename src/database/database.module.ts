@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BoardModel, UserModel, BoardCommentModel } from './model';
-import { BoardCommentRepository, BoardRepository, UserRepository } from './repository';
+import { BoardCommentModel, BoardModel, UserModel } from '~/database/model';
+import { BoardCommentRepository, BoardRepository, UserRepository } from '~/database/repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserModel, BoardModel, BoardCommentModel])],

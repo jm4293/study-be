@@ -1,1 +1,1 @@
-export { BoardModel } from './board.model';
+export * from './board.model';

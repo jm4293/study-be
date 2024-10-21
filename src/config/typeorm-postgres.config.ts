@@ -1,6 +1,6 @@
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { BoardCommentModel, BoardModel, UserModel } from '../database';
+import { BoardCommentModel, BoardModel, UserModel } from '~/database/model';
 
 export const typeormPostgresConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],

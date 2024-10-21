@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BoardModel } from '../../model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BoardCreateRequestDto } from '../../../module/board';
+import { BoardCreateRequestDto } from '~/module/board/request';
 
 @Injectable()
 export class BoardRepository {

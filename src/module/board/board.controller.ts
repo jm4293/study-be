@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { BoardService } from './board.service';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { BoardCreateRequestDto } from './dto';
-import { JwtAuthGuard } from '../../common';
-import { AuthenticatedRequest } from '../../type';
+import { JwtAuthGuard } from '~/common/guard';
+import { AuthenticatedRequest } from '~/type/interface';
+import { BoardCreateRequestDto } from '~/module/board/request';
+import { BoardService } from '~/module/board/board.service';
 
 @Controller('board')
 export class BoardController {

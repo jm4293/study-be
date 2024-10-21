@@ -1,1 +1,1 @@
-export { BoardRepository } from './board-repository';
+export * from './board-repository';

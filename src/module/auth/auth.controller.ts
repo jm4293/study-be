@@ -1,8 +1,8 @@
 import { Body, Controller, Patch, Post, Res } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthSignInRequestDto, AuthSignUpRequestDto, AuthChangePasswordRequestDto } from './dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { Response } from 'express';
+import { AuthChangePasswordRequestDto, AuthSignInRequestDto, AuthSignUpRequestDto } from '~/module/auth/request';
+import { AuthService } from '~/module/auth/auth.service';
 
 @Controller('auth')
 export class AuthController {
