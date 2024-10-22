@@ -1,6 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { ResponseDto } from '~/common/response';
-import { ResponseResultEnum } from '~/common/enum';
+import { ResponseResultEnum } from '~/type/enum/response';
 
 export class AuthSignInResponseDto extends ResponseDto {
   constructor(code: ResponseResultEnum, message: string, data?: unknown) {

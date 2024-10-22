@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { ResponseResultEnum } from '~/common/enum';
+import { ResponseResultEnum } from '~/type/enum/response';
 
 export class ResponseDto {
   constructor(

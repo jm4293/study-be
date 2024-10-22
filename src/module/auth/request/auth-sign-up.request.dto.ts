@@ -1,17 +1,14 @@
 import { Transform, Type } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthSignUpRequestDto {
-  @ApiProperty({
-    description: '이메일',
-    required: true,
-  })
+  @ApiProperty({ description: '아이읻', required: true })
   @Transform(({ value }) => value.trim())
   @Type(() => String)
-  @IsString({ message: '이메일은 문자열이어야 합니다.' })
-  @IsNotEmpty({ message: '이메일은 필수 항목입니다.' })
-  @IsEmail({}, { message: '유효한 이메일 주소를 입력해주세요.' })
+  @IsString({ message: '아이디는 문자열이어야 합니다.' })
+  @IsNotEmpty({ message: '아이디는 필수 항목입니다.' })
+  // @IsEmail({}, { message: '유효한 이메일 주소를 입력해주세요.' })
   email: string;
 
   @ApiProperty({
