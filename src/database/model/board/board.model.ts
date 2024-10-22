@@ -1,6 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserModel } from '../user';
 import { BoardCommentModel } from '../board-comment';
+import { IsEnum } from 'class-validator';
+import { BoardStatusEnum } from '~/type/enum/board';
 
 @Entity({ name: 'board', comment: '게시판 테이블' })
 export class BoardModel {
@@ -18,6 +20,10 @@ export class BoardModel {
 
   @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', comment: '생성일' })
   createdAt: Date;
+
+  @Column({ name: 'status', type: 'varchar', length: 10, comment: '상태' })
+  @IsEnum(BoardStatusEnum)
+  status: BoardStatusEnum;
 
   @OneToMany(() => BoardCommentModel, (comment) => comment.board)
   comments: BoardCommentModel[];
