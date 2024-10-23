@@ -1,5 +1,6 @@
 import { ResponseDto } from '~/common/response';
 import { ResponseResultEnum } from '~/type/enum/response';
+import { BadRequestException } from '@nestjs/common';
 
 export class BoardCommentResponseDto extends ResponseDto {
   constructor(code: ResponseResultEnum, message: string, data?: unknown) {
@@ -11,6 +12,6 @@ export class BoardCommentResponseDto extends ResponseDto {
   }
 
   static Fail(message: string) {
-    return new BoardCommentResponseDto(ResponseResultEnum.FAIL, message);
+    return new BadRequestException(new BoardCommentResponseDto(ResponseResultEnum.FAIL, message));
   }
 }
