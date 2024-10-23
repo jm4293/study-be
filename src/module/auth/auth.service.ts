@@ -3,9 +3,9 @@ import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '~/database/repository/user';
 import { AuthChangePasswordRequestDto, AuthSignInRequestDto, AuthSignUpRequestDto } from '~/module/auth/request';
-import { AuthChangePasswordResponseDto, AuthSignInResponseDto, AuthSignUpResponseDto } from '~/module/auth/response';
 
 import * as bcrypt from 'bcrypt';
+import { AuthResponseDto } from '~/module/auth/response';
 
 @Injectable()
 export class AuthService {
@@ -20,13 +20,13 @@ export class AuthService {
     const user = await this.userRepository.findUserByEmail(email);
 
     if (!user) {
-      throw AuthSignInResponseDto.SignInFail('일치하는 사용자가 없습니다.');
+      throw AuthResponseDto.Fail('일치하는 사용자가 없습니다.');
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      throw AuthSignInResponseDto.SignInFail('비밀번호가 일치하지 않습니다.');
+      throw AuthResponseDto.Fail('비밀번호가 일치하지 않습니다.');
     }
 
     const token = await this.generateToken({ userId: user.id, email: user.email, name: user.name });
@@ -35,7 +35,7 @@ export class AuthService {
 
     const responseData = { email: user.email, name: user.name };
 
-    return res.send(AuthSignInResponseDto.Success('로그인 성공', responseData));
+    return res.send(AuthResponseDto.Success('로그인 성공', responseData));
   }
 
   async signUp(body: AuthSignUpRequestDto) {
@@ -44,13 +44,13 @@ export class AuthService {
     const isExistName = await this.userRepository.findUserByName(name);
 
     if (isExistName) {
-      throw AuthSignUpResponseDto.SignUpFail('이미 존재하는 이름입니다.');
+      throw AuthResponseDto.Fail('이미 존재하는 이름입니다.');
     }
 
     const isExistEmail = await this.userRepository.findUserByEmail(email);
 
     if (isExistEmail) {
-      throw AuthSignUpResponseDto.SignUpFail('이미 존재하는 이메일입니다.');
+      throw AuthResponseDto.Fail('이미 존재하는 이메일입니다.');
     }
 
     const hashSalt = await bcrypt.genSalt();
@@ -60,16 +60,16 @@ export class AuthService {
 
     const responseData = { email: result.email, name: result.name };
 
-    return AuthSignUpResponseDto.Success('회원가입 성공', responseData);
+    return AuthResponseDto.Success('회원가입 성공', responseData);
   }
 
-  async changePassword(body: AuthChangePasswordRequestDto): Promise<AuthChangePasswordResponseDto> {
+  async changePassword(body: AuthChangePasswordRequestDto) {
     const { email, password } = body;
 
     const user = await this.userRepository.findUserByEmail(email);
 
     if (!user) {
-      throw AuthChangePasswordResponseDto.ChangePasswordFail('일치하는 사용자가 없습니다.');
+      throw AuthResponseDto.Fail('일치하는 사용자가 없습니다.');
     }
 
     const hashSalt = await bcrypt.genSalt();
@@ -79,10 +79,10 @@ export class AuthService {
 
     const responseData = { email: user.email, name: user.name };
 
-    return AuthChangePasswordResponseDto.Success('비밀번호 변경 완료', responseData);
+    return AuthResponseDto.Success('비밀번호 변경 완료', responseData);
   }
 
-  async generateToken(payload: { userId: number; email: string; name: string }): Promise<string> {
+  async generateToken(payload: { userId: number; email: string; name: string }) {
     return this.jwtService.sign(payload);
   }
 }
