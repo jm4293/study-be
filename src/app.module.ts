@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configModuleConfig, typeormPostgresConfig } from '~/config';
 import { AuthModule } from '~/module/auth';
 import { BoardModule } from '~/module/board';
+import { BoardCommentModule } from '~/module/board-comment';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -13,6 +14,7 @@ import { AppService } from './app.service';
     TypeOrmModule.forRootAsync(typeormPostgresConfig),
     AuthModule,
     BoardModule,
+    BoardCommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

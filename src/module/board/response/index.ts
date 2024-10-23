@@ -1,1 +1,1 @@
-export * from './create-board.response.dto';
+export * from './board.response.dto';

@@ -14,7 +14,7 @@ export class BoardController {
   @Get('board-detail/:id')
   async board(@Req() req: AuthenticatedRequest, @Param('id') id: number) {
     try {
-      return this.boardService.board(req, id);
+      return this.boardService.boardDetail(req, id);
     } catch (e) {
       return e;
     }
@@ -47,7 +47,6 @@ export class BoardController {
   @Patch('board-update')
   async boardUpdate(@Req() req: AuthenticatedRequest, @Body() body: BoardModifyRequestDto) {
     try {
-      console.log('123123123123123');
       return this.boardService.boardUpdate(req, body);
     } catch (e) {
       return e;
@@ -58,7 +57,6 @@ export class BoardController {
   @UseGuards(JwtAuthGuard)
   @Delete('board-delete/:id')
   async boardDelete(@Req() req: AuthenticatedRequest, @Param('id') id: number) {
-    console.log('12312321321211');
     try {
       return this.boardService.boardDelete(req, id);
     } catch (e) {
