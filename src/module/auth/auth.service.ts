@@ -29,11 +29,12 @@ export class AuthService {
       throw AuthResponseDto.Fail('비밀번호가 일치하지 않습니다.');
     }
 
-    const token = await this.generateToken({ userId: user.id, email: user.email, name: user.name });
+    const accessToken = await this.generateToken({ userId: user.id, email: user.email, name: user.name });
+    const refreshToken = await this.generateToken({ userId: user.id, email: user.email, name: user.name });
 
-    res.setHeader('Authorization', `Bearer ${token}`);
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
 
-    const responseData = { email: user.email, name: user.name };
+    const responseData = { email: user.email, name: user.name, refreshToken };
 
     return res.send(AuthResponseDto.Success('로그인 성공', responseData));
   }
@@ -82,7 +83,17 @@ export class AuthService {
     return AuthResponseDto.Success('비밀번호 변경 완료', responseData);
   }
 
-  async generateToken(payload: { userId: number; email: string; name: string }) {
+  async refreshToken(refreshToken: string, res: Response) {
+    const payload = this.jwtService.verify(refreshToken);
+
+    const accessToken = await this.generateToken({ userId: payload.userId, email: payload.email, name: payload.name });
+
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+
+    return res.send(AuthResponseDto.Success('토큰 재발급 성공'));
+  }
+
+  private async generateToken(payload: { userId: number; email: string; name: string }) {
     return this.jwtService.sign(payload);
   }
 }

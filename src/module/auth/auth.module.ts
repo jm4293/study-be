@@ -9,5 +9,6 @@ import { AuthService } from '~/module/auth/auth.service';
   imports: [DatabaseModule, JwtModule.registerAsync(jwtModuleConfig)],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [JwtModule],
 })
 export class AuthModule {}

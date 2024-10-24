@@ -37,4 +37,14 @@ export class AuthController {
       return e;
     }
   }
+
+  @ApiOperation({ summary: 'refresh token' })
+  @Post('refresh-token')
+  async refreshToken(@Body('refreshToken') refreshToken: string, @Res() res: Response) {
+    try {
+      return this.userService.refreshToken(refreshToken, res);
+    } catch (e) {
+      return e;
+    }
+  }
 }
